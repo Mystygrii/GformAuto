@@ -1,5 +1,6 @@
 from selenium import webdriver
 from autoGform import AutoGform
+import os
 import json
 
 YesNoField = {'y':True,'n':False}
@@ -18,8 +19,12 @@ def run():
 
     while True:
         try:
-            print("\033[H\033[J")
-            register = input("Voulez enregistrer votre nom et prénom ? (y/n) ")
+            if not os.path.exists("fichier.json"):
+                register = "y"
+                print("Veuillez enregistrer votre nom et prénom :")
+            else:
+                print("\033[H\033[J")
+                register = input("Voulez enregistrer à nouveau votre nom et prénom ? (y/n) ")
 
             if register not in YesNoField:
                 raise Exception()
@@ -44,21 +49,7 @@ def run():
             nom = data["nom"]
             prenom = data["prenom"]
 
-    while True:
-        try:
-            validation = input("Voulez vous vérifier les informations ?(y/n) ")
-            print("\033[H\033[J")
-
-            if validation not in YesNoField:
-                raise Exception()
-            else:
-                break
-
-        except:
-            print('Répondez par y ou n')
-            print("\033[H\033[J")
-
-    autoComplete = AutoGform(nom, prenom,YesNoField[validation])
+    autoComplete = AutoGform(nom, prenom)
     autoComplete.complete()
 
 run()

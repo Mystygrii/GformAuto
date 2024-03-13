@@ -2,10 +2,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 class AutoGform:
-    def __init__(self,nom:str,prenom:str,validate:bool):
+    def __init__(self,nom:str,prenom:str):
         self.nom = nom
         self.prenom = prenom
-        self.validate = validate
         
     def complete(self):
         print("completing...")
@@ -21,6 +20,5 @@ class AutoGform:
         self.nameIn = self.driver.find_element(By.XPATH,"/html/body/div/div[2]/form/div[2]/div/div[2]/div[5]/div/div/div[2]/div/div[1]/div/div[1]/input")
         self.nameIn.send_keys(self.prenom)
         
-        if not self.validate:
-            # self.driver.find_element(By.XPATH,"/html/body/div/div[2]/form/div[2]/div/div[3]/div[1]/div[1]/div/span/span").click()
-            print("Completion Done !")
+        self.driver.find_element(By.XPATH,"/html/body/div/div[2]/form/div[2]/div/div[3]/div[1]/div[1]/div/span/span").click()
+        print("Completion Done !")
